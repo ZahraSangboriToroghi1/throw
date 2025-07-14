@@ -1,3 +1,4 @@
 INFO 2025-07-14 16:47:11,566 autoreload 14052 140008485048576 Watching for file changes with StatReloader
 INFO 2025-07-14 16:54:43,418 autoreload 14052 140008485048576 /workspace/medical_reports/serializers.py changed, reloading.
 INFO 2025-07-14 16:54:43,768 autoreload 17465 140214977306880 Watching for file changes with StatReloader
+INFO 2025-07-14 17:07:21,879 autoreload 22855 139785074749696 Watching for file changes with StatReloader
