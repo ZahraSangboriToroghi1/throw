@@ -29,6 +29,7 @@ class PACSIntegration:
 
     def fetch_patient_data(self):
         """دریافت داده‌های بیمار با C-FIND"""
+        assoc = None
         try:
             assoc = self.ae.associate(self.pacs.server_address, self.pacs.port, ae_title=self.pacs.ae_title_remote)
             if assoc.is_established:
@@ -72,13 +73,21 @@ class PACSIntegration:
                             )
                             if created:
                                 logger.info(f"New patient created: {patient.national_id}")
+                                # Create a system user for PACS operations if needed
+                                system_user = User.objects.filter(username='system_pacs').first()
+                                if not system_user:
+                                    system_user = User.objects.create_user(
+                                        username='system_pacs',
+                                        email='system@pacs.local',
+                                        phone='0000000000',
+                                        role='supervisor'
+                                    )
                                 UserActivity.objects.create(
-                                    user=None,
+                                    user=system_user,
                                     action='create_patient_from_pacs',
                                     details=f'Patient {patient.national_id} created from PACS'
                                 )
                         patient_data.append(patient_info)
-                assoc.release()
                 logger.info(f"Fetched {len(patient_data)} patients from PACS {self.pacs.server_address}:{self.pacs.port}")
                 return patient_data
             else:
@@ -87,9 +96,17 @@ class PACSIntegration:
         except Exception as e:
             logger.error(f"Error in C-FIND: {str(e)}")
             return []
+        finally:
+            # Ensure association is always released, even if an exception occurs
+            if assoc and assoc.is_established:
+                try:
+                    assoc.release()
+                except Exception as release_error:
+                    logger.error(f"Error releasing PACS association: {str(release_error)}")
 
     def send_report_to_pacs(self, report_id):
         """ارسال گزارش به PACS با C-STORE"""
+        assoc = None
         try:
             report = Report.objects.get(id=report_id)
             patient = report.patient
@@ -106,11 +123,19 @@ class PACSIntegration:
                 ds.EncapsulatedDocument = report.content.encode('utf-8')
 
                 status = assoc.send_c_store(ds)
-                assoc.release()
                 if status.Status == 0:
                     logger.info(f"Report {report_id} sent to PACS {self.pacs.server_address}:{self.pacs.port}")
+                    # Get or create system user for PACS operations
+                    system_user = User.objects.filter(username='system_pacs').first()
+                    if not system_user:
+                        system_user = User.objects.create_user(
+                            username='system_pacs',
+                            email='system@pacs.local',
+                            phone='0000000000',
+                            role='supervisor'
+                        )
                     UserActivity.objects.create(
-                        user=None,
+                        user=system_user,
                         action='send_report_to_pacs',
                         details=f'Report {report_id} sent to PACS'
                     )
@@ -121,20 +146,61 @@ class PACSIntegration:
             else:
                 logger.error(f"Failed to connect to PACS {self.pacs.server_address}:{self.pacs.port}")
                 return False
+        except Report.DoesNotExist:
+            logger.error(f"Report with ID {report_id} does not exist")
+            return False
         except Exception as e:
             logger.error(f"Error in C-STORE for report {report_id}: {str(e)}")
             return False
+        finally:
+            # Ensure association is always released, even if an exception occurs
+            if assoc and assoc.is_established:
+                try:
+                    assoc.release()
+                except Exception as release_error:
+                    logger.error(f"Error releasing PACS association: {str(release_error)}")
 
     def send_image_to_pacs(self, image_id):
         """ارسال تصویر به PACS با C-STORE"""
+        assoc = None
         try:
             image = Image.objects.get(id=image_id)
             patient = image.patient
+            
+            # Validate file exists and is accessible
+            file_path = os.path.join(settings.MEDIA_ROOT, image.file.name)
+            if not os.path.exists(file_path):
+                logger.error(f"Image file not found: {file_path}")
+                return False
+            
+            # Check file size to prevent sending corrupt or empty files
+            if os.path.getsize(file_path) == 0:
+                logger.error(f"Image file is empty: {file_path}")
+                return False
+            
             assoc = self.ae.associate(self.pacs.server_address, self.pacs.port, ae_title=self.pacs.ae_title_remote)
             if assoc.is_established:
-                from pydicom.filebase import DicomFile
-                with DicomFile(os.path.join(settings.MEDIA_ROOT, image.file.name), 'rb') as f:
-                    ds = f.read()
+                try:
+                    from pydicom.filebase import DicomFile
+                    from pydicom.errors import InvalidDicomError
+                    
+                    # Safely read DICOM file with proper error handling
+                    with DicomFile(file_path, 'rb') as f:
+                        ds = f.read()
+                    
+                    # Validate that we have a valid DICOM dataset
+                    if not hasattr(ds, 'SOPClassUID'):
+                        logger.error(f"Invalid DICOM file - missing SOPClassUID: {file_path}")
+                        return False
+                        
+                except (InvalidDicomError, OSError, IOError) as dicom_error:
+                    logger.error(f"Failed to read DICOM file {file_path}: {str(dicom_error)}")
+                    return False
+                except Exception as read_error:
+                    logger.error(f"Unexpected error reading DICOM file {file_path}: {str(read_error)}")
+                    return False
+                
+                # Update DICOM metadata
                 ds.PatientName = f"{patient.first_name}^{patient.last_name}"
                 ds.PatientID = patient.national_id
                 ds.StudyInstanceUID = str(uuid.uuid4())
@@ -144,11 +210,19 @@ class PACSIntegration:
                 ds.SOPClassUID = sop_class.MRImageStorage
 
                 status = assoc.send_c_store(ds)
-                assoc.release()
                 if status.Status == 0:
                     logger.info(f"Image {image_id} sent to PACS {self.pacs.server_address}:{self.pacs.port}")
+                    # Get or create system user for PACS operations  
+                    system_user = User.objects.filter(username='system_pacs').first()
+                    if not system_user:
+                        system_user = User.objects.create_user(
+                            username='system_pacs',
+                            email='system@pacs.local',
+                            phone='0000000000',
+                            role='supervisor'
+                        )
                     UserActivity.objects.create(
-                        user=None,
+                        user=system_user,
                         action='send_image_to_pacs',
                         details=f'Image {image_id} sent to PACS'
                     )
@@ -159,9 +233,19 @@ class PACSIntegration:
             else:
                 logger.error(f"Failed to connect to PACS {self.pacs.server_address}:{self.pacs.port}")
                 return False
+        except Image.DoesNotExist:
+            logger.error(f"Image with ID {image_id} does not exist")
+            return False
         except Exception as e:
             logger.error(f"Error in C-STORE for image {image_id}: {str(e)}")
             return False
+        finally:
+            # Ensure association is always released, even if an exception occurs
+            if assoc and assoc.is_established:
+                try:
+                    assoc.release()
+                except Exception as release_error:
+                    logger.error(f"Error releasing PACS association: {str(release_error)}")
 
     def sync_pacs_data(self):
         """همگام‌سازی خودکار: دریافت بیماران و ارسال گزارش‌ها و تصاویر"""
