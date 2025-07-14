@@ -1,0 +1,2949 @@
+swagger: '2.0'
+info:
+  title: Healthcare System API
+  description: API for managing healthcare system operations
+  termsOfService: https://www.example.com/policies/terms/
+  contact:
+    email: contact@example.com
+  license:
+    name: BSD License
+  version: v1
+host: 127.0.0.1:8000
+schemes:
+- http
+basePath: /api
+consumes:
+- application/json
+produces:
+- application/json
+securityDefinitions:
+  Basic:
+    type: basic
+security:
+- Basic: []
+paths:
+  /appointments/:
+    get:
+      operationId: appointments_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Appointment'
+      tags:
+      - appointments
+    post:
+      operationId: appointments_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Appointment'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Appointment'
+      tags:
+      - appointments
+    parameters: []
+  /appointments/dashboard_appointments/:
+    get:
+      operationId: appointments_dashboard_appointments
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Appointment'
+      tags:
+      - appointments
+    parameters: []
+  /appointments/future_appointments/:
+    get:
+      operationId: appointments_future_appointments
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Appointment'
+      tags:
+      - appointments
+    parameters: []
+  /appointments/stats/:
+    get:
+      operationId: appointments_stats
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Appointment'
+      tags:
+      - appointments
+    parameters: []
+  /appointments/{id}/:
+    get:
+      operationId: appointments_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Appointment'
+      tags:
+      - appointments
+    put:
+      operationId: appointments_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Appointment'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Appointment'
+      tags:
+      - appointments
+    patch:
+      operationId: appointments_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Appointment'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Appointment'
+      tags:
+      - appointments
+    delete:
+      operationId: appointments_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - appointments
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this appointment.
+      required: true
+      type: integer
+  /appointments/{id}/cancel/:
+    post:
+      operationId: appointments_cancel
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Appointment'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Appointment'
+      tags:
+      - appointments
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this appointment.
+      required: true
+      type: integer
+  /appointments/{id}/delete/:
+    delete:
+      operationId: appointments_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - appointments
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this appointment.
+      required: true
+      type: integer
+  /auth/login/:
+    post:
+      operationId: auth_login_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/TokenObtainPair'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/TokenObtainPair'
+      tags:
+      - auth
+    parameters: []
+  /auth/logout/:
+    post:
+      operationId: auth_logout_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - auth
+    parameters: []
+  /auth/me/:
+    get:
+      operationId: auth_me_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - auth
+    parameters: []
+  /config/modalities/:
+    get:
+      operationId: config_modalities_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - config
+    parameters: []
+  /demo-request/:
+    post:
+      operationId: demo-request_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - demo-request
+    parameters: []
+  /doctors/advanced_search/:
+    get:
+      operationId: doctors_advanced_search
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - doctors
+    parameters: []
+  /doctors/stats/:
+    get:
+      operationId: doctors_stats
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - doctors
+    parameters: []
+  /ehr/:
+    get:
+      operationId: ehr_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EHR'
+      tags:
+      - ehr
+    post:
+      operationId: ehr_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/EHR'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/EHR'
+      tags:
+      - ehr
+    parameters: []
+  /ehr/{id}/:
+    get:
+      operationId: ehr_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/EHR'
+      tags:
+      - ehr
+    put:
+      operationId: ehr_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/EHR'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/EHR'
+      tags:
+      - ehr
+    patch:
+      operationId: ehr_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/EHR'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/EHR'
+      tags:
+      - ehr
+    delete:
+      operationId: ehr_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - ehr
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this ehr.
+      required: true
+      type: integer
+  /ehr/{id}/sync_with_pacs/:
+    post:
+      operationId: ehr_sync_with_pacs
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/EHR'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/EHR'
+      tags:
+      - ehr
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this ehr.
+      required: true
+      type: integer
+  /field-mappings/:
+    get:
+      operationId: field-mappings_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FieldMapping'
+      tags:
+      - field-mappings
+    post:
+      operationId: field-mappings_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/FieldMapping'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/FieldMapping'
+      tags:
+      - field-mappings
+    parameters: []
+  /field-mappings/by_hospital/:
+    get:
+      operationId: field-mappings_by_hospital
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FieldMapping'
+      tags:
+      - field-mappings
+    parameters: []
+  /field-mappings/{id}/:
+    get:
+      operationId: field-mappings_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/FieldMapping'
+      tags:
+      - field-mappings
+    put:
+      operationId: field-mappings_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/FieldMapping'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/FieldMapping'
+      tags:
+      - field-mappings
+    patch:
+      operationId: field-mappings_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/FieldMapping'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/FieldMapping'
+      tags:
+      - field-mappings
+    delete:
+      operationId: field-mappings_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - field-mappings
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this field mapping.
+      required: true
+      type: integer
+  /hospital-headers/:
+    get:
+      operationId: hospital-headers_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/HospitalHeader'
+      tags:
+      - hospital-headers
+    post:
+      operationId: hospital-headers_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/HospitalHeader'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/HospitalHeader'
+      tags:
+      - hospital-headers
+    parameters: []
+  /hospital-headers/by_department/:
+    get:
+      operationId: hospital-headers_by_department
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/HospitalHeader'
+      tags:
+      - hospital-headers
+    parameters: []
+  /hospital-headers/{id}/:
+    get:
+      operationId: hospital-headers_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/HospitalHeader'
+      tags:
+      - hospital-headers
+    put:
+      operationId: hospital-headers_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/HospitalHeader'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/HospitalHeader'
+      tags:
+      - hospital-headers
+    patch:
+      operationId: hospital-headers_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/HospitalHeader'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/HospitalHeader'
+      tags:
+      - hospital-headers
+    delete:
+      operationId: hospital-headers_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - hospital-headers
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this hospital header.
+      required: true
+      type: integer
+  /hospital-headers/{id}/preview/:
+    post:
+      operationId: hospital-headers_preview
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/HospitalHeader'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/HospitalHeader'
+      tags:
+      - hospital-headers
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this hospital header.
+      required: true
+      type: integer
+  /hospitals/:
+    get:
+      operationId: hospitals_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Hospital'
+      tags:
+      - hospitals
+    post:
+      operationId: hospitals_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Hospital'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Hospital'
+      tags:
+      - hospitals
+    parameters: []
+  /hospitals/{id}/:
+    get:
+      operationId: hospitals_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Hospital'
+      tags:
+      - hospitals
+    put:
+      operationId: hospitals_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Hospital'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Hospital'
+      tags:
+      - hospitals
+    patch:
+      operationId: hospitals_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Hospital'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Hospital'
+      tags:
+      - hospitals
+    delete:
+      operationId: hospitals_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - hospitals
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this hospital.
+      required: true
+      type: integer
+  /images/:
+    get:
+      operationId: images_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Image'
+      tags:
+      - images
+    post:
+      operationId: images_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Image'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Image'
+      tags:
+      - images
+    parameters: []
+  /images/{id}/:
+    get:
+      operationId: images_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Image'
+      tags:
+      - images
+    put:
+      operationId: images_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Image'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Image'
+      tags:
+      - images
+    patch:
+      operationId: images_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Image'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Image'
+      tags:
+      - images
+    delete:
+      operationId: images_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - images
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this image.
+      required: true
+      type: integer
+  /modalities/:
+    get:
+      operationId: modalities_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Modality'
+      tags:
+      - modalities
+    post:
+      operationId: modalities_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Modality'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Modality'
+      tags:
+      - modalities
+    parameters: []
+  /modalities/{id}/:
+    get:
+      operationId: modalities_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Modality'
+      tags:
+      - modalities
+    put:
+      operationId: modalities_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Modality'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Modality'
+      tags:
+      - modalities
+    patch:
+      operationId: modalities_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Modality'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Modality'
+      tags:
+      - modalities
+    delete:
+      operationId: modalities_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - modalities
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this modality.
+      required: true
+      type: integer
+  /pacs/:
+    get:
+      operationId: pacs_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PACS'
+      tags:
+      - pacs
+    post:
+      operationId: pacs_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PACS'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/PACS'
+      tags:
+      - pacs
+    parameters: []
+  /pacs/{id}/:
+    get:
+      operationId: pacs_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/PACS'
+      tags:
+      - pacs
+    put:
+      operationId: pacs_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PACS'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/PACS'
+      tags:
+      - pacs
+    patch:
+      operationId: pacs_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PACS'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/PACS'
+      tags:
+      - pacs
+    delete:
+      operationId: pacs_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - pacs
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this pacs.
+      required: true
+      type: integer
+  /pacs/{id}/fetch_patient_data/:
+    get:
+      operationId: pacs_fetch_patient_data
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/PACS'
+      tags:
+      - pacs
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this pacs.
+      required: true
+      type: integer
+  /pacs/{id}/send_image/:
+    post:
+      operationId: pacs_send_image
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PACS'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/PACS'
+      tags:
+      - pacs
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this pacs.
+      required: true
+      type: integer
+  /pacs/{id}/send_report/:
+    post:
+      operationId: pacs_send_report
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PACS'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/PACS'
+      tags:
+      - pacs
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this pacs.
+      required: true
+      type: integer
+  /pacs/{id}/test_connection/:
+    post:
+      operationId: pacs_test_connection
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PACS'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/PACS'
+      tags:
+      - pacs
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this pacs.
+      required: true
+      type: integer
+  /patients/:
+    get:
+      operationId: patients_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Patient'
+      tags:
+      - patients
+    post:
+      operationId: patients_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Patient'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Patient'
+      tags:
+      - patients
+    parameters: []
+  /patients/advanced_search/:
+    get:
+      operationId: patients_advanced_search
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Patient'
+      tags:
+      - patients
+    parameters: []
+  /patients/check_national_id/:
+    post:
+      operationId: patients_check_national_id
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Patient'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Patient'
+      tags:
+      - patients
+    parameters: []
+  /patients/completed_patients/:
+    get:
+      operationId: patients_completed_patients
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Patient'
+      tags:
+      - patients
+    parameters: []
+  /patients/completed_patients/advanced_search/:
+    get:
+      operationId: patients_completed_patients_completed_patients_advanced_search
+      description: Advanced search for completed patients (has_report=True and status='completed').
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Patient'
+      tags:
+      - patients
+    parameters: []
+  /patients/pending_patients/:
+    get:
+      operationId: patients_pending_patients
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Patient'
+      tags:
+      - patients
+    parameters: []
+  /patients/reset_filters/:
+    get:
+      operationId: patients_reset_filters
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Patient'
+      tags:
+      - patients
+    parameters: []
+  /patients/search/:
+    get:
+      operationId: patients_search
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Patient'
+      tags:
+      - patients
+    parameters: []
+  /patients/stats/:
+    get:
+      operationId: patients_stats
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Patient'
+      tags:
+      - patients
+    parameters: []
+  /patients/{id}/:
+    get:
+      operationId: patients_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Patient'
+      tags:
+      - patients
+    put:
+      operationId: patients_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Patient'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Patient'
+      tags:
+      - patients
+    patch:
+      operationId: patients_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Patient'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Patient'
+      tags:
+      - patients
+    delete:
+      operationId: patients_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - patients
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this patient.
+      required: true
+      type: integer
+  /patients/{id}/report_status/:
+    get:
+      operationId: patients_report_status
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Patient'
+      tags:
+      - patients
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this patient.
+      required: true
+      type: integer
+  /permissions/:
+    get:
+      operationId: permissions_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Permission'
+      tags:
+      - permissions
+    post:
+      operationId: permissions_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Permission'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Permission'
+      tags:
+      - permissions
+    parameters: []
+  /permissions/{id}/:
+    get:
+      operationId: permissions_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Permission'
+      tags:
+      - permissions
+    put:
+      operationId: permissions_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Permission'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Permission'
+      tags:
+      - permissions
+    patch:
+      operationId: permissions_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Permission'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Permission'
+      tags:
+      - permissions
+    delete:
+      operationId: permissions_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - permissions
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this permission.
+      required: true
+      type: integer
+  /report-messages/:
+    get:
+      operationId: report-messages_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ReportMessage'
+      tags:
+      - report-messages
+    post:
+      operationId: report-messages_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ReportMessage'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/ReportMessage'
+      tags:
+      - report-messages
+    parameters: []
+  /report-messages/{id}/:
+    get:
+      operationId: report-messages_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/ReportMessage'
+      tags:
+      - report-messages
+    put:
+      operationId: report-messages_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ReportMessage'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/ReportMessage'
+      tags:
+      - report-messages
+    patch:
+      operationId: report-messages_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ReportMessage'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/ReportMessage'
+      tags:
+      - report-messages
+    delete:
+      operationId: report-messages_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - report-messages
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this report message.
+      required: true
+      type: integer
+  /report-templates/:
+    get:
+      operationId: report-templates_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ReportTemplate'
+      tags:
+      - report-templates
+    post:
+      operationId: report-templates_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ReportTemplate'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/ReportTemplate'
+      tags:
+      - report-templates
+    parameters: []
+  /report-templates/by_modality/:
+    get:
+      operationId: report-templates_by_modality
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ReportTemplate'
+      tags:
+      - report-templates
+    parameters: []
+  /report-templates/{id}/:
+    get:
+      operationId: report-templates_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/ReportTemplate'
+      tags:
+      - report-templates
+    put:
+      operationId: report-templates_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ReportTemplate'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/ReportTemplate'
+      tags:
+      - report-templates
+    patch:
+      operationId: report-templates_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ReportTemplate'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/ReportTemplate'
+      tags:
+      - report-templates
+    delete:
+      operationId: report-templates_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - report-templates
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this report template.
+      required: true
+      type: integer
+  /reports/:
+    get:
+      operationId: reports_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Report'
+      tags:
+      - reports
+    post:
+      operationId: reports_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Report'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Report'
+      tags:
+      - reports
+    parameters: []
+  /reports/completed_patients_reports/:
+    get:
+      operationId: reports_completed_patients_reports
+      description: Retrieve all reports for patients with completed reports (has_report=True),
+        accessible only to secretaries.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Report'
+      tags:
+      - reports
+    parameters: []
+  /reports/list/:
+    get:
+      operationId: reports_list_reports
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Report'
+      tags:
+      - reports
+    parameters: []
+  /reports/list_reports/:
+    get:
+      operationId: reports_list_reports
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Report'
+      tags:
+      - reports
+    parameters: []
+  /reports/view_patient_reports/{patient_id}/:
+    get:
+      operationId: reports_view_patient_reports
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Report'
+      tags:
+      - reports
+    parameters:
+    - name: patient_id
+      in: path
+      required: true
+      type: string
+  /reports/{id}/:
+    get:
+      operationId: reports_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Report'
+      tags:
+      - reports
+    put:
+      operationId: reports_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Report'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Report'
+      tags:
+      - reports
+    patch:
+      operationId: reports_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Report'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Report'
+      tags:
+      - reports
+    delete:
+      operationId: reports_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - reports
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this report.
+      required: true
+      type: integer
+  /reports/{id}/change_status/:
+    post:
+      operationId: reports_change_status
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Report'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Report'
+      tags:
+      - reports
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this report.
+      required: true
+      type: integer
+  /reports/{id}/complete/:
+    post:
+      operationId: reports_complete
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Report'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Report'
+      tags:
+      - reports
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this report.
+      required: true
+      type: integer
+  /reports/{id}/export/:
+    post:
+      operationId: reports_export
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Report'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Report'
+      tags:
+      - reports
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this report.
+      required: true
+      type: integer
+  /reports/{id}/export_pdf/:
+    post:
+      operationId: reports_export_pdf
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Report'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Report'
+      tags:
+      - reports
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this report.
+      required: true
+      type: integer
+  /reports/{id}/process_audio/:
+    post:
+      operationId: reports_process_audio
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Report'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Report'
+      tags:
+      - reports
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this report.
+      required: true
+      type: integer
+  /reports/{id}/request_revision/:
+    post:
+      operationId: reports_request_revision
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Report'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Report'
+      tags:
+      - reports
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this report.
+      required: true
+      type: integer
+  /reports/{id}/send_email/:
+    post:
+      operationId: reports_send_email
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Report'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Report'
+      tags:
+      - reports
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this report.
+      required: true
+      type: integer
+  /reports/{id}/sign/:
+    post:
+      operationId: reports_sign
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Report'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Report'
+      tags:
+      - reports
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this report.
+      required: true
+      type: integer
+  /user-activities/:
+    get:
+      operationId: user-activities_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserActivity'
+      tags:
+      - user-activities
+    post:
+      operationId: user-activities_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserActivity'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/UserActivity'
+      tags:
+      - user-activities
+    parameters: []
+  /user-activities/all/:
+    get:
+      operationId: user-activities_all_activities
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserActivity'
+      tags:
+      - user-activities
+    parameters: []
+  /user-activities/all_activities/:
+    get:
+      operationId: user-activities_all_activities
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserActivity'
+      tags:
+      - user-activities
+    parameters: []
+  /user-activities/by_user/:
+    get:
+      operationId: user-activities_by_user
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserActivity'
+      tags:
+      - user-activities
+    parameters: []
+  /user-activities/summary/:
+    get:
+      operationId: user-activities_summary
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserActivity'
+      tags:
+      - user-activities
+    parameters: []
+  /user-activities/{id}/:
+    get:
+      operationId: user-activities_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/UserActivity'
+      tags:
+      - user-activities
+    put:
+      operationId: user-activities_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserActivity'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/UserActivity'
+      tags:
+      - user-activities
+    patch:
+      operationId: user-activities_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserActivity'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/UserActivity'
+      tags:
+      - user-activities
+    delete:
+      operationId: user-activities_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - user-activities
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this user activity.
+      required: true
+      type: integer
+  /users/:
+    get:
+      operationId: users_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+      tags:
+      - users
+    post:
+      operationId: users_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+      - users
+    parameters: []
+  /users/doctors/:
+    get:
+      operationId: users_doctors
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+      tags:
+      - users
+    parameters: []
+  /users/search/:
+    get:
+      operationId: users_search
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+      tags:
+      - users
+    parameters: []
+  /users/{id}/:
+    get:
+      operationId: users_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+      - users
+    put:
+      operationId: users_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+      - users
+    patch:
+      operationId: users_partial_update
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+      - users
+    delete:
+      operationId: users_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - users
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this user.
+      required: true
+      type: integer
+  /users/{id}/profile/:
+    get:
+      operationId: users_profile
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+      - users
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this user.
+      required: true
+      type: integer
+  /users/{id}/set_permissions/:
+    post:
+      operationId: users_set_permissions
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+      - users
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this user.
+      required: true
+      type: integer
+  /welcome/:
+    get:
+      operationId: welcome_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - welcome
+    parameters: []
+definitions:
+  DoctorList:
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      preferred_name:
+        title: Preferred name
+        type: string
+        maxLength: 255
+  Appointment:
+    required:
+    - patient_id
+    - doctor_id
+    - time
+    - status
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      patient_id:
+        title: Patient id
+        type: integer
+      doctor:
+        $ref: '#/definitions/DoctorList'
+      doctor_id:
+        title: Doctor id
+        type: integer
+      date:
+        title: Date
+        type: string
+        format: date
+      time:
+        title: Time
+        type: string
+      status:
+        title: Status
+        type: string
+        maxLength: 20
+        minLength: 1
+      first_name:
+        title: First name
+        type: string
+        readOnly: true
+      last_name:
+        title: Last name
+        type: string
+        readOnly: true
+      national_id:
+        title: National id
+        type: string
+        readOnly: true
+      doctor_name:
+        title: Doctor name
+        type: string
+        readOnly: true
+  TokenObtainPair:
+    required:
+    - username
+    - password
+    type: object
+    properties:
+      username:
+        title: Username
+        type: string
+        minLength: 1
+      password:
+        title: Password
+        type: string
+        minLength: 1
+  EHR:
+    required:
+    - hospital
+    - endpoint
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      hospital:
+        title: Hospital
+        type: integer
+      endpoint:
+        title: Endpoint
+        type: string
+        format: uri
+        maxLength: 200
+        minLength: 1
+      auth_token:
+        title: Auth token
+        type: string
+        maxLength: 255
+  FieldMapping:
+    required:
+    - hospital
+    - system_field
+    - external_field
+    - type
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      hospital:
+        title: Hospital
+        type: integer
+      system_field:
+        title: System field
+        type: string
+        maxLength: 100
+        minLength: 1
+      external_field:
+        title: External field
+        type: string
+        maxLength: 100
+        minLength: 1
+      type:
+        title: Type
+        type: string
+        enum:
+        - string
+        - integer
+        - date
+        - boolean
+      description:
+        title: Description
+        type: string
+  HospitalHeader:
+    required:
+    - hospital
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      hospital:
+        title: Hospital
+        type: integer
+      department:
+        title: Department
+        type: string
+        maxLength: 100
+      image:
+        title: Image
+        type: string
+        readOnly: true
+        x-nullable: true
+        format: uri
+      font_family:
+        title: Font family
+        type: string
+        enum:
+        - Helvetica
+        - Times-Roman
+        - Courier
+      heading_color:
+        title: Heading color
+        type: string
+        maxLength: 7
+      text_color:
+        title: Text color
+        type: string
+        maxLength: 7
+      paper_size:
+        title: Paper size
+        type: string
+        enum:
+        - A4
+        - Letter
+        - Legal
+      logo_position:
+        title: Logo position
+        type: string
+        enum:
+        - left
+        - right
+      name_position:
+        title: Name position
+        type: string
+        enum:
+        - top-left
+        - top-right
+        - bottom-left
+        - bottom-right
+      department_position:
+        title: Department position
+        type: string
+        enum:
+        - top-left
+        - top-right
+        - bottom-left
+        - bottom-right
+      address_position:
+        title: Address position
+        type: string
+        enum:
+        - top-left
+        - top-right
+        - bottom-left
+        - bottom-right
+      phone_position:
+        title: Phone position
+        type: string
+        enum:
+        - top-left
+        - top-right
+        - bottom-left
+        - bottom-right
+      email_position:
+        title: Email position
+        type: string
+        enum:
+        - top-left
+        - top-right
+        - bottom-left
+        - bottom-right
+      fax_position:
+        title: Fax position
+        type: string
+        enum:
+        - top-left
+        - top-right
+        - bottom-left
+        - bottom-right
+      qr_code_position:
+        title: Qr code position
+        type: string
+        enum:
+        - top-left
+        - top-right
+        - bottom-left
+        - bottom-right
+      website_position:
+        title: Website position
+        type: string
+        enum:
+        - top-left
+        - top-right
+        - bottom-left
+        - bottom-right
+      emergency_contact_position:
+        title: Emergency contact position
+        type: string
+        enum:
+        - top-left
+        - top-right
+        - bottom-left
+        - bottom-right
+      accreditations_position:
+        title: Accreditations position
+        type: string
+        enum:
+        - top-left
+        - top-right
+        - bottom-left
+        - bottom-right
+      address:
+        title: Address
+        type: string
+      phone:
+        title: Phone
+        type: string
+        maxLength: 20
+      email_address:
+        title: Email address
+        type: string
+        format: email
+        maxLength: 254
+      fax_number:
+        title: Fax number
+        type: string
+        maxLength: 20
+      website_url:
+        title: Website url
+        type: string
+        format: uri
+        maxLength: 200
+      emergency_contact:
+        title: Emergency contact
+        type: string
+        maxLength: 20
+      accreditation:
+        title: Accreditation
+        type: string
+      qr_code_link:
+        title: Qr code link
+        type: string
+        format: uri
+        maxLength: 200
+  Hospital:
+    required:
+    - name
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      name:
+        title: Name
+        type: string
+        maxLength: 255
+        minLength: 1
+      address:
+        title: Address
+        type: string
+      phone:
+        title: Phone
+        type: string
+        maxLength: 20
+  Image:
+    required:
+    - patient
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      patient:
+        title: Patient
+        type: integer
+      report:
+        title: Report
+        type: integer
+        x-nullable: true
+      file:
+        title: File
+        type: string
+        readOnly: true
+        format: uri
+      created_at:
+        title: Created at
+        type: string
+        format: date-time
+  Modality:
+    required:
+    - name
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      name:
+        title: Name
+        type: string
+        maxLength: 50
+        minLength: 1
+  PACS:
+    required:
+    - name
+    - server_address
+    - port
+    - ae_title_local
+    - ae_title_remote
+    - hospital
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      name:
+        title: Name
+        type: string
+        maxLength: 100
+        minLength: 1
+      server_address:
+        title: Server address
+        type: string
+        maxLength: 50
+        minLength: 1
+      port:
+        title: Port
+        type: integer
+        maximum: 2147483647
+        minimum: -2147483648
+      ae_title_local:
+        title: Ae title local
+        type: string
+        maxLength: 50
+        minLength: 1
+      ae_title_remote:
+        title: Ae title remote
+        type: string
+        maxLength: 50
+        minLength: 1
+      hospital:
+        title: Hospital
+        type: integer
+      patient:
+        title: Patient
+        type: integer
+        x-nullable: true
+      image_url:
+        title: Image url
+        type: string
+        format: uri
+        maxLength: 200
+      created_at:
+        title: Created at
+        type: string
+        format: date-time
+  Patient:
+    required:
+    - first_name
+    - last_name
+    - national_id
+    - birth_date
+    - gender
+    - phone
+    - modality
+    - status
+    - hospital
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      first_name:
+        title: First name
+        type: string
+        maxLength: 100
+        minLength: 1
+      last_name:
+        title: Last name
+        type: string
+        maxLength: 100
+        minLength: 1
+      national_id:
+        title: National id
+        type: string
+        maxLength: 20
+        minLength: 1
+      birth_date:
+        title: Birth date
+        type: string
+        format: date
+      age:
+        title: Age
+        type: integer
+        maximum: 2147483647
+        minimum: -2147483648
+        x-nullable: true
+      gender:
+        title: Gender
+        type: string
+        enum:
+        - male
+        - female
+      phone:
+        title: Phone
+        type: string
+        maxLength: 20
+        minLength: 1
+      modality:
+        title: Modality
+        type: string
+        maxLength: 50
+        minLength: 1
+      status:
+        title: Status
+        type: string
+        maxLength: 20
+        minLength: 1
+      hospital:
+        title: Hospital
+        type: integer
+      reference_doctor:
+        title: Reference doctor
+        type: integer
+        x-nullable: true
+      related_doctor:
+        title: Related doctor
+        type: integer
+        x-nullable: true
+      reference_doctor_data:
+        $ref: '#/definitions/DoctorList'
+      registration_date:
+        title: Registration date
+        type: string
+        format: date-time
+      visit_date:
+        title: تاریخ ویزیت
+        type: string
+        format: date
+        x-nullable: true
+      doctor:
+        $ref: '#/definitions/DoctorList'
+  Permission:
+    required:
+    - user
+    - permission
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      user:
+        title: User
+        type: integer
+      permission:
+        title: Permission
+        type: string
+        maxLength: 100
+        minLength: 1
+      hospital:
+        title: Hospital
+        type: integer
+        x-nullable: true
+  ReportMessage:
+    required:
+    - report
+    - sender
+    - message
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      report:
+        title: Report
+        type: integer
+      sender:
+        title: Sender
+        type: integer
+      receiver:
+        title: Receiver
+        type: integer
+        x-nullable: true
+      message:
+        title: Message
+        type: string
+        minLength: 1
+      created_at:
+        title: Created at
+        type: string
+        format: date-time
+  ReportTemplate:
+    required:
+    - hospital
+    - modality
+    - structure
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      hospital:
+        title: Hospital
+        type: integer
+      modality:
+        title: Modality
+        type: string
+        maxLength: 100
+        minLength: 1
+      structure:
+        title: Structure
+        type: string
+        minLength: 1
+  Report:
+    required:
+    - patient
+    - doctor
+    - content
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      patient:
+        title: Patient
+        type: integer
+      doctor:
+        title: Doctor
+        type: integer
+      content:
+        title: Content
+        type: string
+        minLength: 1
+      created_at:
+        title: Created at
+        type: string
+        format: date-time
+      signature:
+        title: Signature
+        type: boolean
+      token:
+        title: Token
+        type: string
+        format: uuid
+      status:
+        title: Status
+        type: string
+        enum:
+        - submitted
+        - review
+      audio_file:
+        title: Audio file
+        type: string
+        readOnly: true
+        x-nullable: true
+        format: uri
+      default_actions:
+        title: Default actions
+        type: object
+  UserActivity:
+    required:
+    - user
+    - action
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      user:
+        title: User
+        type: integer
+      action:
+        title: Action
+        type: string
+        maxLength: 100
+        minLength: 1
+      details:
+        title: Details
+        type: string
+      timestamp:
+        title: Timestamp
+        type: string
+        format: date-time
+  User:
+    required:
+    - username
+    - email
+    - phone
+    - role
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      username:
+        title: Username
+        type: string
+        maxLength: 150
+        minLength: 1
+      email:
+        title: Email
+        type: string
+        format: email
+        maxLength: 254
+        minLength: 1
+      phone:
+        title: Phone
+        type: string
+        maxLength: 20
+        minLength: 1
+      role:
+        title: Role
+        type: string
+        enum:
+        - supervisor
+        - hospital_admin
+        - doctor
+        - secretary
+      hospital:
+        title: Hospital
+        type: integer
+        x-nullable: true
+      department:
+        title: Department
+        type: string
+        maxLength: 100
+      preferred_name:
+        title: Preferred name
+        type: string
+        maxLength: 255
+      is_active:
+        title: Is active
+        type: boolean

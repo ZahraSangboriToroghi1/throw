@@ -1,0 +1,32 @@
+Django==5.2
+djangorestframework==3.15.2
+djangorestframework-simplejwt==5.3.1
+django-cors-headers==4.4.0
+django-filter==24.3
+requests==2.32.3
+python-decouple==3.8
+
+pip install pynetdicom
+
+pip install speechrecognition openai
+
+# الزامات نصب برای سیستم پزشکی
+# دستورات نصب سیستم‌عامل (برای Ubuntu)
+# sudo apt-get update
+# sudo apt-get install -y python3.10-venv ffmpeg git
+
+# کلون کردن مخازن
+# git clone https://github.com/openai/whisper.git
+# git clone https://github.com/epfLLM/meditron.git
+
+# پکیج‌های پایتون
+transformers>=4.34.0
+torch>=2.0.1
+vllm>=0.2.1
+datasets>=2.14.6
+numpy>=1.23.0
+pandas>=1.5.0
+pynetdicom>=2.0.0
+django-cryptography>=1.1
+speechrecognition>=3.8.1
+openai-whisper>=20240930

@@ -1,0 +1,92 @@
+[
+  {
+    "model": "medical_reports.hospital",
+    "pk": 1,
+    "fields": {
+      "name": "Test Hospital",
+      "address": "123 Test St",
+      "phone": "02112345678",
+      "fax": "",
+      "header_color": "",
+      "header_font": "",
+      "logo_position": "",
+      "qr_code_position": ""
+    }
+  },
+  {
+    "model": "medical_reports.user",
+    "pk": 1,
+    "fields": {
+      "username": "supervisor1",
+      "preferred_name": "Supervisor One",
+      "email": "supervisor1@example.com",
+      "phone": "09123456788",
+      "role": "supervisor",
+      "hospital": null,
+      "department": "",
+      "is_active": true,
+      "is_staff": true,
+      "is_admin": true,
+      "is_superuser": true,
+      "date_joined": "2025-05-01T00:00:00Z",
+      "password": "pbkdf2_sha256$1000000$SORk3BoVvOR4LsiOZCLMVd$cmya9K+o6YYPjmAsdfluV451YVl69YoX34QPC96Yoys="
+    }
+  },
+  {
+    "model": "medical_reports.user",
+    "pk": 2,
+    "fields": {
+      "username": "hospital_admin1",
+      "preferred_name": "Admin One",
+      "email": "admin1@example.com",
+      "phone": "09123456786",
+      "role": "hospital_admin",
+      "hospital": 1,
+      "department": "Administration",
+      "is_active": true,
+      "is_staff": true,
+      "is_admin": true,
+      "is_superuser": false,
+      "date_joined": "2025-05-01T00:00:00Z",
+      "password": "pbkdf2_sha256$1000000$tY8MKhlqyuevg0darJfyIj$ZN0k7eHKsGVS4XTr09YYAcXZmN+PvFWUde6Z3m6WKN0="
+    }
+  },
+  {
+    "model": "medical_reports.user",
+    "pk": 3,
+    "fields": {
+      "username": "secretary1",
+      "preferred_name": "Secretary One",
+      "email": "secretary1@example.com",
+      "phone": "09123456789",
+      "role": "secretary",
+      "hospital": 1,
+      "department": "General",
+      "is_active": true,
+      "is_staff": false,
+      "is_admin": false,
+      "is_superuser": false,
+      "date_joined": "2025-05-01T00:00:00Z",
+      "password": "pbkdf2_sha256$1000000$e1iyOBZbrq5Tl2dBOjT6p8$6hdRfB4h+Nun2BGSF3qVe17NiRlt+40aPEDBEeJuMOE="
+    }
+  },
+  {
+    "model": "medical_reports.user",
+    "pk": 6,
+    "fields": {
+      "username": "Doctor",
+      "preferred_name": "09123456786",
+      "email": "doctor@example.com",
+      "phone": "09123456786",
+      "role": "doctor",
+      "hospital": 1,
+      "department": "Radiology",
+      "is_active": true,
+      "is_staff": false,
+      "is_admin": false,
+      "is_superuser": false,
+      "date_joined": "2025-05-01T00:00:00Z",
+      "password": "pbkdf2_sha256$1000000$Jv3jFPYgYLeVFkXJL1UpPd$LvEf7vZ+7ZbhULY+T/bqDdvtns0rbQZcPzbFQzq4Iis="
+    }
+  }
+]

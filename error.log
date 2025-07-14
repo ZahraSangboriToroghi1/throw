@@ -1,0 +1,7 @@
+Failed to connect to PACS 127.0.0.1:104
+Failed to connect to PACS 127.0.0.1:104
+PACS connection test failed for 127.0.0.1:4242
+Report 1 not found
+Failed to set permissions for user 4 by hospital_admin1: No User matches the given query.
+Failed to set permissions for user 4 by hospital_admin1: No User matches the given query.
+Failed to delete PACS by hospital_admin1: No PACS matches the given query.
