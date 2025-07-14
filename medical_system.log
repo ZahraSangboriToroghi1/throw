@@ -2,3 +2,8 @@ INFO 2025-07-14 16:47:11,566 autoreload 14052 140008485048576 Watching for file 
 INFO 2025-07-14 16:54:43,418 autoreload 14052 140008485048576 /workspace/medical_reports/serializers.py changed, reloading.
 INFO 2025-07-14 16:54:43,768 autoreload 17465 140214977306880 Watching for file changes with StatReloader
 INFO 2025-07-14 17:07:21,879 autoreload 22855 139785074749696 Watching for file changes with StatReloader
+INFO 2025-07-14 17:34:23,994 autoreload 32501 140711741997312 Watching for file changes with StatReloader
+INFO 2025-07-14 17:34:39,183 autoreload 32680 139885728678144 Watching for file changes with StatReloader
+INFO 2025-07-14 17:50:21,413 autoreload 39294 139894284882176 Watching for file changes with StatReloader
+INFO 2025-07-14 17:51:18,511 autoreload 39967 140396367433984 Watching for file changes with StatReloader
+INFO 2025-07-14 17:51:26,978 basehttp 39967 140396221953728 "POST /api/auth/login/ HTTP/1.1" 200 483
