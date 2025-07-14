@@ -1,11 +1,42 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import User, Hospital, Patient, Appointment, Report, Modality, ReportMessage, PACS, EHR, FieldMapping, ReportTemplate, UserActivity, Permission, HospitalHeader, Image
+from .admin_forms import CustomUserCreationForm, CustomUserChangeForm
 
 @admin.register(User)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'role', 'hospital', 'is_active')
-    list_filter = ('role', 'is_active')
-    search_fields = ('username', 'email')
+class UserAdmin(BaseUserAdmin):
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = User
+    list_display = ('username', 'email', 'role', 'hospital', 'is_active', 'is_staff')
+    list_filter = ('role', 'is_active', 'is_staff', 'hospital')
+    search_fields = ('username', 'email', 'phone')
+    ordering = ('username',)
+    
+    fieldsets = (
+        (None, {'fields': ('username', 'password')}),
+        ('Personal info', {'fields': ('preferred_name', 'email', 'phone')}),
+        ('Permissions', {'fields': ('role', 'hospital', 'department', 'is_active', 'is_staff', 'is_admin', 'is_superuser')}),
+        ('Important dates', {'fields': ('date_joined',)}),
+    )
+    
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username', 'email', 'phone', 'role', 'hospital', 'password1', 'password2'),
+        }),
+    )
+    
+    def save_model(self, request, obj, form, change):
+        """Ensure password is properly hashed when saved through admin"""
+        if not change:  # Creating new user
+            # Password is already handled by CustomUserCreationForm
+            pass
+        else:  # Updating existing user
+            # Only hash password if it was changed
+            if form.cleaned_data.get('password'):
+                obj.set_password(form.cleaned_data['password'])
+        super().save_model(request, obj, form, change)
 
 @admin.register(Hospital)
 class HospitalAdmin(admin.ModelAdmin):

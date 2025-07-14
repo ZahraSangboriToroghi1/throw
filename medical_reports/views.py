@@ -2007,10 +2007,6 @@ class ReportMessageViewSet(viewsets.ModelViewSet):
 
 logger = logging.getLogger('medical_reports')
 
-class IsAdminOrSupervisor(BasePermission):
-    def has_permission(self, request, view):
-        return request.user and request.user.is_authenticated and request.user.role in ['supervisor', 'hospital_admin']
-
 class EHRViewSet(viewsets.ModelViewSet):
     queryset = EHR.objects.all()
     serializer_class = EHRSerializer
@@ -2145,10 +2141,6 @@ class EHRViewSet(viewsets.ModelViewSet):
 
 logger = logging.getLogger('medical_reports')
 
-class IsAdminOrSupervisor(BasePermission):
-    def has_permission(self, request, view):
-        return request.user and request.user.is_authenticated and request.user.role in ['supervisor', 'hospital_admin']
-
 class PACSViewSet(viewsets.ModelViewSet):
     queryset = PACS.objects.all()
     serializer_class = PACSSerializer
@@ -2199,10 +2191,6 @@ class PACSViewSet(viewsets.ModelViewSet):
                 'message': f'خطا: {str(e)}',
                 'color': 'red'
             }, status=status.HTTP_400_BAD_REQUEST)
-
-    queryset = PACS.objects.all()
-    serializer_class = PACSSerializer
-    permission_classes = [IsAuthenticated, IsAdminOrSupervisor]
     
 
     def destroy(self, request, *args, **kwargs):
