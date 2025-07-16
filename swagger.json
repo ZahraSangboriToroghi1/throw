@@ -22,6 +22,21 @@ securityDefinitions:
 security:
 - Basic: []
 paths:
+  /api/dicom_viewer/{study_uid}/:
+    get:
+      operationId: api_dicom_viewer_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - api
+    parameters:
+    - name: study_uid
+      in: path
+      required: true
+      type: string
   /appointments/:
     get:
       operationId: appointments_list
@@ -260,6 +275,21 @@ paths:
       tags:
       - demo-request
     parameters: []
+  /dicom_viewer/{study_uid}/:
+    get:
+      operationId: dicom_viewer_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - dicom_viewer
+    parameters:
+    - name: study_uid
+      in: path
+      required: true
+      type: string
   /doctors/advanced_search/:
     get:
       operationId: doctors_advanced_search
@@ -504,7 +534,17 @@ paths:
     get:
       operationId: hospital-headers_list
       description: ''
-      parameters: []
+      parameters:
+      - name: hospital
+        in: query
+        description: hospital
+        required: false
+        type: string
+      - name: department
+        in: query
+        description: department
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -535,7 +575,17 @@ paths:
     get:
       operationId: hospital-headers_by_department
       description: ''
-      parameters: []
+      parameters:
+      - name: hospital
+        in: query
+        description: hospital
+        required: false
+        type: string
+      - name: department
+        in: query
+        description: department
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1006,6 +1056,29 @@ paths:
       description: A unique integer value identifying this pacs.
       required: true
       type: integer
+  /pacs/{id}/retrieve_image/:
+    post:
+      operationId: pacs_retrieve_image
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PACS'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/PACS'
+      tags:
+      - pacs
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this pacs.
+      required: true
+      type: integer
   /pacs/{id}/send_image/:
     post:
       operationId: pacs_send_image
@@ -1079,7 +1152,27 @@ paths:
     get:
       operationId: patients_list
       description: ''
-      parameters: []
+      parameters:
+      - name: min_age
+        in: query
+        description: min_age
+        required: false
+        type: string
+      - name: max_age
+        in: query
+        description: max_age
+        required: false
+        type: string
+      - name: start_date
+        in: query
+        description: start_date
+        required: false
+        type: string
+      - name: end_date
+        in: query
+        description: end_date
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1110,7 +1203,27 @@ paths:
     get:
       operationId: patients_advanced_search
       description: ''
-      parameters: []
+      parameters:
+      - name: min_age
+        in: query
+        description: min_age
+        required: false
+        type: string
+      - name: max_age
+        in: query
+        description: max_age
+        required: false
+        type: string
+      - name: start_date
+        in: query
+        description: start_date
+        required: false
+        type: string
+      - name: end_date
+        in: query
+        description: end_date
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1143,7 +1256,27 @@ paths:
     get:
       operationId: patients_completed_patients
       description: ''
-      parameters: []
+      parameters:
+      - name: min_age
+        in: query
+        description: min_age
+        required: false
+        type: string
+      - name: max_age
+        in: query
+        description: max_age
+        required: false
+        type: string
+      - name: start_date
+        in: query
+        description: start_date
+        required: false
+        type: string
+      - name: end_date
+        in: query
+        description: end_date
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1158,7 +1291,27 @@ paths:
     get:
       operationId: patients_completed_patients_completed_patients_advanced_search
       description: Advanced search for completed patients (has_report=True and status='completed').
-      parameters: []
+      parameters:
+      - name: min_age
+        in: query
+        description: min_age
+        required: false
+        type: string
+      - name: max_age
+        in: query
+        description: max_age
+        required: false
+        type: string
+      - name: start_date
+        in: query
+        description: start_date
+        required: false
+        type: string
+      - name: end_date
+        in: query
+        description: end_date
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1173,7 +1326,27 @@ paths:
     get:
       operationId: patients_pending_patients
       description: ''
-      parameters: []
+      parameters:
+      - name: min_age
+        in: query
+        description: min_age
+        required: false
+        type: string
+      - name: max_age
+        in: query
+        description: max_age
+        required: false
+        type: string
+      - name: start_date
+        in: query
+        description: start_date
+        required: false
+        type: string
+      - name: end_date
+        in: query
+        description: end_date
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1188,7 +1361,27 @@ paths:
     get:
       operationId: patients_reset_filters
       description: ''
-      parameters: []
+      parameters:
+      - name: min_age
+        in: query
+        description: min_age
+        required: false
+        type: string
+      - name: max_age
+        in: query
+        description: max_age
+        required: false
+        type: string
+      - name: start_date
+        in: query
+        description: start_date
+        required: false
+        type: string
+      - name: end_date
+        in: query
+        description: end_date
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1203,7 +1396,27 @@ paths:
     get:
       operationId: patients_search
       description: ''
-      parameters: []
+      parameters:
+      - name: min_age
+        in: query
+        description: min_age
+        required: false
+        type: string
+      - name: max_age
+        in: query
+        description: max_age
+        required: false
+        type: string
+      - name: start_date
+        in: query
+        description: start_date
+        required: false
+        type: string
+      - name: end_date
+        in: query
+        description: end_date
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1218,7 +1431,27 @@ paths:
     get:
       operationId: patients_stats
       description: ''
-      parameters: []
+      parameters:
+      - name: min_age
+        in: query
+        description: min_age
+        required: false
+        type: string
+      - name: max_age
+        in: query
+        description: max_age
+        required: false
+        type: string
+      - name: start_date
+        in: query
+        description: start_date
+        required: false
+        type: string
+      - name: end_date
+        in: query
+        description: end_date
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1400,7 +1633,22 @@ paths:
     get:
       operationId: report-messages_list
       description: ''
-      parameters: []
+      parameters:
+      - name: report
+        in: query
+        description: report
+        required: false
+        type: string
+      - name: sender
+        in: query
+        description: sender
+        required: false
+        type: string
+      - name: receiver
+        in: query
+        description: receiver
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1490,7 +1738,17 @@ paths:
     get:
       operationId: report-templates_list
       description: ''
-      parameters: []
+      parameters:
+      - name: modality
+        in: query
+        description: modality
+        required: false
+        type: string
+      - name: hospital
+        in: query
+        description: hospital
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1521,7 +1779,17 @@ paths:
     get:
       operationId: report-templates_by_modality
       description: ''
-      parameters: []
+      parameters:
+      - name: modality
+        in: query
+        description: modality
+        required: false
+        type: string
+      - name: hospital
+        in: query
+        description: hospital
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1934,7 +2202,22 @@ paths:
     get:
       operationId: user-activities_list
       description: ''
-      parameters: []
+      parameters:
+      - name: user
+        in: query
+        description: user
+        required: false
+        type: string
+      - name: action
+        in: query
+        description: action
+        required: false
+        type: string
+      - name: timestamp
+        in: query
+        description: timestamp
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1965,7 +2248,22 @@ paths:
     get:
       operationId: user-activities_all_activities
       description: ''
-      parameters: []
+      parameters:
+      - name: user
+        in: query
+        description: user
+        required: false
+        type: string
+      - name: action
+        in: query
+        description: action
+        required: false
+        type: string
+      - name: timestamp
+        in: query
+        description: timestamp
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1980,7 +2278,22 @@ paths:
     get:
       operationId: user-activities_all_activities
       description: ''
-      parameters: []
+      parameters:
+      - name: user
+        in: query
+        description: user
+        required: false
+        type: string
+      - name: action
+        in: query
+        description: action
+        required: false
+        type: string
+      - name: timestamp
+        in: query
+        description: timestamp
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -1995,7 +2308,22 @@ paths:
     get:
       operationId: user-activities_by_user
       description: ''
-      parameters: []
+      parameters:
+      - name: user
+        in: query
+        description: user
+        required: false
+        type: string
+      - name: action
+        in: query
+        description: action
+        required: false
+        type: string
+      - name: timestamp
+        in: query
+        description: timestamp
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -2010,7 +2338,22 @@ paths:
     get:
       operationId: user-activities_summary
       description: ''
-      parameters: []
+      parameters:
+      - name: user
+        in: query
+        description: user
+        required: false
+        type: string
+      - name: action
+        in: query
+        description: action
+        required: false
+        type: string
+      - name: timestamp
+        in: query
+        description: timestamp
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -2084,7 +2427,27 @@ paths:
     get:
       operationId: users_list
       description: ''
-      parameters: []
+      parameters:
+      - name: username
+        in: query
+        description: username
+        required: false
+        type: string
+      - name: role
+        in: query
+        description: role
+        required: false
+        type: string
+        enum:
+        - supervisor
+        - hospital_admin
+        - doctor
+        - secretary
+      - name: hospital
+        in: query
+        description: hospital
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -2115,7 +2478,27 @@ paths:
     get:
       operationId: users_doctors
       description: ''
-      parameters: []
+      parameters:
+      - name: username
+        in: query
+        description: username
+        required: false
+        type: string
+      - name: role
+        in: query
+        description: role
+        required: false
+        type: string
+        enum:
+        - supervisor
+        - hospital_admin
+        - doctor
+        - secretary
+      - name: hospital
+        in: query
+        description: hospital
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -2130,7 +2513,27 @@ paths:
     get:
       operationId: users_search
       description: ''
-      parameters: []
+      parameters:
+      - name: username
+        in: query
+        description: username
+        required: false
+        type: string
+      - name: role
+        in: query
+        description: role
+        required: false
+        type: string
+        enum:
+        - supervisor
+        - hospital_admin
+        - doctor
+        - secretary
+      - name: hospital
+        in: query
+        description: hospital
+        required: false
+        type: string
       responses:
         '200':
           description: ''
@@ -2668,7 +3071,6 @@ definitions:
     - first_name
     - last_name
     - national_id
-    - birth_date
     - gender
     - phone
     - modality
@@ -2699,6 +3101,7 @@ definitions:
         title: Birth date
         type: string
         format: date
+        x-nullable: true
       age:
         title: Age
         type: integer
